@@ -1,0 +1,631 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+    "name": "Peminjaman Alat API (MySQL)",
+    "description": "Koleksi API Sistem Peminjaman Alat (Express 5 + MySQL + JWT). Login otomatis menyimpan token ke variabel {{token}}.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:4000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "1. Auth & Profil",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Login - Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var res = pm.response.json();",
+                  "    if (res.data && res.data.token) {",
+                  "        pm.collectionVariables.set('token', res.data.token);",
+                  "        console.log('Token Admin tersimpan:', res.data.token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login - Petugas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var res = pm.response.json();",
+                  "    if (res.data && res.data.token) {",
+                  "        pm.collectionVariables.set('token', res.data.token);",
+                  "        console.log('Token Petugas tersimpan:', res.data.token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"petugas\",\n  \"password\": \"petugas123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login - Peminjam",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var res = pm.response.json();",
+                  "    if (res.data && res.data.token) {",
+                  "        pm.collectionVariables.set('token', res.data.token);",
+                  "        console.log('Token Peminjam tersimpan:', res.data.token);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"peminjam\",\n  \"password\": \"peminjam123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Profil Saya (Get Me)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Dashboard",
+      "item": [
+        {
+          "name": "Lihat Dashboard Ringkasan",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Kategori (Categories)",
+      "item": [
+        {
+          "name": "Daftar Semua Kategori",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Tambah Kategori (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laboratorium\",\n  \"description\": \"Alat-alat praktikum sains dan riset\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "Update Kategori (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Elektronik & Multimedia\",\n  \"description\": \"Perangkat presentasi dan elektronik\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories/1",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "1"]
+            }
+          }
+        },
+        {
+          "name": "Hapus Kategori (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/4",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "4"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Alat (Tools)",
+      "item": [
+        {
+          "name": "Daftar Semua Alat",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tools",
+              "host": ["{{base_url}}"],
+              "path": ["tools"]
+            }
+          }
+        },
+        {
+          "name": "Daftar Alat Hanya Yang Tersedia",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tools?available=true",
+              "host": ["{{base_url}}"],
+              "path": ["tools"],
+              "query": [
+                { "key": "available", "value": "true" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cari Alat (Query q)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tools?q=laptop",
+              "host": ["{{base_url}}"],
+              "path": ["tools"],
+              "query": [
+                { "key": "q", "value": "laptop" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Detail Alat Berdasarkan ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tools/1",
+              "host": ["{{base_url}}"],
+              "path": ["tools", "1"]
+            }
+          }
+        },
+        {
+          "name": "Tambah Alat Baru (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category_id\": 1,\n  \"name\": \"Kamera DSLR Canon\",\n  \"description\": \"Kamera dokumentasi dan liputan\",\n  \"image_url\": \"https://images.unsplash.com/photo-1516035069371-29a1b244cc32\",\n  \"stock\": 3\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/tools",
+              "host": ["{{base_url}}"],
+              "path": ["tools"]
+            }
+          }
+        },
+        {
+          "name": "Update Data Alat (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Proyektor Full HD\",\n  \"stock\": 5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/tools/1",
+              "host": ["{{base_url}}"],
+              "path": ["tools", "1"]
+            }
+          }
+        },
+        {
+          "name": "Hapus Alat (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tools/7",
+              "host": ["{{base_url}}"],
+              "path": ["tools", "7"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Peminjaman (Loans)",
+      "item": [
+        {
+          "name": "Daftar Peminjaman",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/loans",
+              "host": ["{{base_url}}"],
+              "path": ["loans"]
+            }
+          }
+        },
+        {
+          "name": "Detail Peminjaman",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/loans/1",
+              "host": ["{{base_url}}"],
+              "path": ["loans", "1"]
+            }
+          }
+        },
+        {
+          "name": "Ajukan Peminjaman (Peminjam / Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tool_id\": 1,\n  \"quantity\": 1,\n  \"due_date\": \"2026-10-30\",\n  \"note\": \"Untuk presentasi kelas\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/loans",
+              "host": ["{{base_url}}"],
+              "path": ["loans"]
+            }
+          }
+        },
+        {
+          "name": "Setujui Peminjaman (Petugas)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/loans/1/approve",
+              "host": ["{{base_url}}"],
+              "path": ["loans", "1", "approve"]
+            }
+          }
+        },
+        {
+          "name": "Tolak Peminjaman (Petugas)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Alat sedang dalam perbaikan\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/loans/1/reject",
+              "host": ["{{base_url}}"],
+              "path": ["loans", "1", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Hapus Peminjaman (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/loans/1",
+              "host": ["{{base_url}}"],
+              "path": ["loans", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Pengembalian (Returns)",
+      "item": [
+        {
+          "name": "Daftar Pengembalian",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/returns",
+              "host": ["{{base_url}}"],
+              "path": ["returns"]
+            }
+          }
+        },
+        {
+          "name": "Ajukan Pengembalian (Peminjam / Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"loan_id\": 1,\n  \"item_condition\": \"baik\",\n  \"note\": \"Barang dikembalikan lengkap beserta kabel\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/returns",
+              "host": ["{{base_url}}"],
+              "path": ["returns"]
+            }
+          }
+        },
+        {
+          "name": "Konfirmasi Pengembalian (Petugas)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/returns/1/confirm",
+              "host": ["{{base_url}}"],
+              "path": ["returns", "1", "confirm"]
+            }
+          }
+        },
+        {
+          "name": "Hapus Pengembalian (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/returns/1",
+              "host": ["{{base_url}}"],
+              "path": ["returns", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Kelola Pengguna (Khusus Admin)",
+      "item": [
+        {
+          "name": "Daftar Semua Pengguna",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Tambah Pengguna Baru",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Siti Rahma\",\n  \"username\": \"sitirahma\",\n  \"password\": \"password123\",\n  \"role\": \"peminjam\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Update Data Pengguna",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Siti Rahmawati\",\n  \"role\": \"peminjam\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/4",
+              "host": ["{{base_url}}"],
+              "path": ["users", "4"]
+            }
+          }
+        },
+        {
+          "name": "Hapus Pengguna",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/4",
+              "host": ["{{base_url}}"],
+              "path": ["users", "4"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. Laporan & Log Aktivitas",
+      "item": [
+        {
+          "name": "Cetak Laporan Peminjaman (JSON - Petugas)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/reports/loans?format=json",
+              "host": ["{{base_url}}"],
+              "path": ["reports", "loans"],
+              "query": [
+                { "key": "format", "value": "json" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cetak Laporan Peminjaman (CSV - Petugas)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/reports/loans?format=csv",
+              "host": ["{{base_url}}"],
+              "path": ["reports", "loans"],
+              "query": [
+                { "key": "format", "value": "csv" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Log Aktivitas (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/logs",
+              "host": ["{{base_url}}"],
+              "path": ["logs"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

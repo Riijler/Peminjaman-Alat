@@ -1,0 +1,245 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  padding: 32px 20px;
+  background:
+    radial-gradient(ellipse at 82% 0%, rgb(76 74 174 / 13%), transparent 38%),
+    radial-gradient(ellipse at 5% 88%, rgb(30 174 180 / 9%), transparent 32%),
+    #070a14;
+}
+
+.ambientGlow {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: min(680px, 100vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(55 83 152 / 11%), transparent 68%);
+  filter: blur(26px);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.loginCard {
+  width: min(100%, 360px);
+  padding: 28px;
+  border: 1px solid #202a42;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgb(17 26 47 / 97%), rgb(13 21 39 / 97%));
+  box-shadow:
+    0 28px 90px rgb(0 0 0 / 36%),
+    0 0 48px rgb(64 99 180 / 8%),
+    inset 0 1px 0 rgb(255 255 255 / 3%);
+}
+
+.brandMark {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #70f1e7 0%, #59bdf4 48%, #9277ff 100%);
+  box-shadow: 0 0 24px rgb(91 206 239 / 24%);
+}
+
+.brandMark span {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #10172b;
+  box-shadow: 0 0 0 3px rgb(16 23 43 / 14%);
+}
+
+.title {
+  margin-top: 15px;
+  color: #eef2ff;
+  font-size: 23px;
+  font-weight: 650;
+  letter-spacing: -0.65px;
+  line-height: 1.25;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: #8d9ab5;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.form {
+  display: grid;
+  gap: 13px;
+  margin-top: 20px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  color: #9aa8c2;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.field input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #202b45;
+  border-radius: 9px;
+  outline: none;
+  background: #0a1225;
+  color: #edf2ff;
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: normal;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.passwordInput {
+  position: relative;
+  display: block;
+}
+
+.passwordInput input {
+  padding-right: 88px;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  min-height: 28px;
+  padding: 0 7px;
+  transform: translateY(-50%);
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: #8fa4c5;
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.passwordToggle:hover {
+  border-color: #344464;
+  background: #17233c;
+  color: #c6f4f4;
+}
+
+.passwordToggle:focus-visible {
+  outline: 2px solid #8ce6f4;
+  outline-offset: 2px;
+}
+
+.field input::placeholder {
+  color: #56627a;
+}
+
+.field input:hover {
+  border-color: #344464;
+}
+
+.field input:focus-visible {
+  border-color: #62cfe7;
+  background: #0c162b;
+  box-shadow: 0 0 0 3px rgb(98 207 231 / 12%);
+}
+
+.submitButton {
+  position: relative;
+  isolation: isolate;
+  height: 43px;
+  margin-top: 9px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 9px;
+  background: linear-gradient(105deg, #55d9df 0%, #64bdf1 49%, #8874f5 100%);
+  color: #071022;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 7px 22px rgb(81 190 227 / 15%);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.submitButton::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(105deg, #72f3e7 0%, #82d5ff 49%, #a28cff 100%);
+  content: "";
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  box-shadow:
+    0 0 0 1px rgb(149 219 255 / 20%),
+    0 10px 30px rgb(89 187 239 / 30%);
+  filter: saturate(1.13);
+  transform: translateY(-2px);
+}
+
+.submitButton:hover:not(:disabled)::after {
+  opacity: 1;
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0) scale(0.99);
+}
+
+.submitButton:focus-visible {
+  outline: 2px solid #8ce6f4;
+  outline-offset: 3px;
+}
+
+.submitButton:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.status {
+  min-height: 16px;
+  margin: -4px 0 -7px;
+  color: #85e1d5;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.statusError {
+  color: #ff9aab;
+}
+
+@media (max-width: 420px) {
+  .loginCard {
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field input,
+  .submitButton,
+  .submitButton::after,
+  .passwordToggle {
+    transition: none;
+  }
+}

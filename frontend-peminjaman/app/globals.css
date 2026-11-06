@@ -1,0 +1,30 @@
+:root {
+  color-scheme: dark;
+  background: #070a14;
+  color: #eef2ff;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+::selection {
+  background: rgb(89 202 225 / 32%);
+  color: #f5fcff;
+}
